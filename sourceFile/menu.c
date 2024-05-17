@@ -27,7 +27,7 @@ void selectMenu(int n){
         break;
 
     case 3:
-        // changeStu();
+        changeStu();
         break;
 
     case 4:

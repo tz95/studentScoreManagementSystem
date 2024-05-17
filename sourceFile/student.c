@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include "../include/student.h"
 
-stuNode *searchById(int);
-
 stuNode *head = NULL;
 int idNum = 0;
 

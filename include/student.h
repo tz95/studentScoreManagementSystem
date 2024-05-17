@@ -20,6 +20,7 @@ typedef struct stuNode
 
 stuNode *newStuNode(void);
 void delectStuNode(int id);
+stuNode *searchById(int);
 
 extern stuNode* head;
 extern int idNum;
