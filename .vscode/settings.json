@@ -1,7 +1,6 @@
 {
-    "makefile.makefilePath": "/home/tz95/projects/example/studentManagementSystem/sms.Makefile",
     "files.associations": {
-        "*.Makefile": "makefile",
+        "makefile": "makefile",
         "gtk.h": "c",
         "typeinfo": "c",
         "operation.h": "c"
@@ -10,6 +9,11 @@
         {
             "cwd": "/home/tz95/projects/example/studentManagementSystem",
             "binaryPath": "/home/tz95/projects/example/studentManagementSystem/sms",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "/home/tz95/projects/example/studentScoreManagementSystem",
+            "binaryPath": "/home/tz95/projects/example/studentScoreManagementSystem/sms",
             "binaryArgs": []
         }
     ]

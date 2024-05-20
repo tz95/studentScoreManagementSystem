@@ -21,6 +21,10 @@ typedef struct stuNode
 stuNode *newStuNode(void);
 void delectStuNode(int id);
 stuNode *searchById(int);
+stuNode *searchByName(char *name,void (*f)(stuNode *));
+void changeStudent(stuNode *node,char *name,int ch,int math,int en);
+void clearNode(void);
 
 extern stuNode* head;
 extern int idNum;
+extern int stuTotalNum;

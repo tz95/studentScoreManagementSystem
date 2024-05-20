@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "../include/menu.h"
 #include "../include/operation.h"
 
@@ -31,23 +32,23 @@ void selectMenu(int n){
         break;
 
     case 4:
-        // searchStu();
+        searchStu();
         break;
     
     case 5:
-        // loadStu();
+        loadStu();
         break;
     
     case 6:
-        // saveStu();
+        saveStu();
         break;
     
     case 7:
-        // sortStu();
+        sortStu();
         break;
     
     case 8:
-        showStu();
+        showAllStu();
         break;
     default:
         exit(0);
