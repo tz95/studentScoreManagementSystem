@@ -13,8 +13,7 @@ stuNode *newStuNode(void) {
         return NULL; // 内存分配失败，返回NULL
     }
     node->data = malloc(STUSIZE);
-    node->data->name = calloc(11,1);
-    if (node->data == NULL || node->data->name == NULL) {
+    if (node->data == NULL) {
         if (node->data->name == NULL)
             free(node->data);
         free(node); // 释放节点内存
@@ -43,10 +42,9 @@ void delectStuNode(int id){
         printf("删除失败，不存在的学生\n");
         return;
     }
-    free(p->data->name);
-    free(p->data);
     p->prev->next = p->next;
     p->next->prev = p->prev;
+    free(p->data);
     free(p);
     stuTotalNum--;
     printf("删除成功\n");
@@ -102,4 +100,105 @@ void clearNode(void){
     }
     stuTotalNum = 0;
     system("clear");
+}
+
+// Merge function to merge two sorted lists
+stuNode* merge(stuNode* left, stuNode* right, int (*cmp)(student*, student*)) {
+    stuNode dummy;
+    stuNode* tail = &dummy;
+    dummy.next = head;
+    dummy.prev = head;
+    
+    while (left != head && right != head) {
+        if (cmp(left->data, right->data) <= 0) {
+            tail->next = left;
+            left->prev = tail;
+            left = left->next;
+        } else {
+            tail->next = right;
+            right->prev = tail;
+            right = right->next;
+        }
+        tail = tail->next;
+    }
+
+    tail->next = (left == head) ? right : left;
+    tail->next->prev = tail;
+    while (tail->next != head) {
+        tail = tail->next;
+    }
+    tail->next = head;
+    head->prev = tail;
+
+    return dummy.next;
+}
+
+// Split function to split the list into two halves
+void split(stuNode* source, stuNode** front, stuNode** back) {
+    stuNode* fast = source->next;
+    stuNode* slow = source;
+
+    while (fast != head && fast->next != head) {
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+
+    *front = source;
+    *back = slow->next;
+    slow->next = head;
+    head->prev = slow;
+    (*back)->prev = head;
+}
+
+// Recursive merge sort function
+void mergeSort(stuNode** headRef, int (*cmp)(student*, student*)) {
+    stuNode* head = *headRef;
+    if (head == NULL || head->next == head) {
+        return;
+    }
+
+    stuNode* a;
+    stuNode* b;
+    split(head, &a, &b);
+    mergeSort(&a, cmp);
+    mergeSort(&b, cmp);
+
+    *headRef = merge(a, b, cmp);
+}
+
+// Comparison function for sorting by Chinese score
+int cmpChinese(student* a, student* b) {
+    return a->chineseScore - b->chineseScore;
+}
+
+// Comparison function for sorting by Math score
+int cmpMath(student* a, student* b) {
+    return a->mathScore - b->mathScore;
+}
+
+// Comparison function for sorting by English score
+int cmpEnglish(student* a, student* b) {
+    return a->englishScore - b->englishScore;
+}
+
+// Comparison function for sorting by Total score
+int cmpTotal(student* a, student* b) {
+    return (a->chineseScore + a->mathScore + a->englishScore) - (b->chineseScore + b->mathScore + b->englishScore);
+}
+
+// Function to sort by total score
+void sortByTotal() {
+    mergeSort(&head->next, cmpTotal);
+}
+
+void sortByChinese() {
+    mergeSort(&head->next, cmpChinese);
+}
+
+void sortByMath() {
+    mergeSort(&head->next, cmpMath);
+}
+
+void sortByEnglish() {
+    mergeSort(&head->next, cmpEnglish);
 }

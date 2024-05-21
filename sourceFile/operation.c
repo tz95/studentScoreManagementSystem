@@ -12,7 +12,7 @@ void addStu(){
         student *stu = node->data;
         stu->id = idNum++;
         printf("请输入学生姓名(限制三个汉字及以下):");
-        scanf("%11s",stu->name);
+        scanf("%14s",stu->name);
         printf("请输入学生语文成绩:");
         scanf("%d",&stu->chineseScore);
         printf("请输入学生数学成绩:");
@@ -44,9 +44,9 @@ void changeStu(){
     }else{
         showStu(node);
         int ch,math,en;
-        char name[11];
+        char name[14];
         printf("请输入姓名:");
-        scanf("%11s",name);
+        scanf("%14s",name);
         printf("请输入语文成绩:");
         scanf("%d",&ch);
         printf("请输入数学成绩:");
@@ -75,7 +75,7 @@ void searchStu(){
         break;
 
     case '2':
-        char name[11];
+        char name[14];
         printf("请输入需要查找学生的姓名:");
         scanf("%11s",name);
         printf("\n\n");
@@ -94,7 +94,7 @@ void loadStu(){
     int num;
     FILE *fp = fopen("./data/stu.data","rb");
     if(fp == NULL){
-        printf("无访问权限，请检查文件状态后重试");
+        printf("无访问权限，请检查文件状态后重试\n");
         return;
     }
     fread(&num,sizeof(num),1,fp);
@@ -137,13 +137,31 @@ void saveStu(){
     fclose(fp);
 }
 
-void sortStu(){
-    while(getchar != "\n");
+void sortStu(void){
+    int n;
     printf("要根据什么排序?\n"
            "1.语文成绩\n"
            "2.数学成绩\n"
            "3.英语成绩\n"
            "4.总分\n");
+    scanf("%d",&n);
+    switch (n) {
+        case 1:
+            sortByChinese();
+            break;
+        case 2:
+            sortByMath();
+            break;
+        case 3:
+            sortByEnglish();
+            break;
+        case 4:
+            sortByTotal();
+            break;
+        default:
+            printf("无效值!\n\n");
+            break;
+    }
 }
 
 void showStu(stuNode *node){
@@ -152,7 +170,7 @@ void showStu(stuNode *node){
         return;
     }
     student *stu = node->data;
-    printf("| %4d | %.*s | %4d | %4d | %4d | %4d |\n", stu->id, 11, stu->name, stu->chineseScore, stu->mathScore, stu->englishScore, stu->chineseScore + stu->mathScore + stu->englishScore);
+    printf("| %4d | %.*s | %4d | %4d | %4d | %4d |\n", stu->id, 14, stu->name, stu->chineseScore, stu->mathScore, stu->englishScore, stu->chineseScore + stu->mathScore + stu->englishScore);
 }
 
 void showAllStu(){
@@ -161,7 +179,7 @@ void showAllStu(){
     for (stuNode *i = head->next; i != head; i=i->next)
     {
         student *stu = i->data; // 获取学生结构体指针
-        printf("| %4d | %.*s | %4d | %4d | %4d | %4d |\n", stu->id, 11, stu->name, stu->chineseScore, stu->mathScore, stu->englishScore, stu->chineseScore + stu->mathScore + stu->englishScore);
+        printf("| %4d | %.*s | %4d | %4d | %4d | %4d |\n", stu->id, 14, stu->name, stu->chineseScore, stu->mathScore, stu->englishScore, stu->chineseScore + stu->mathScore + stu->englishScore);
     }
     printf("\n\n");
 }
