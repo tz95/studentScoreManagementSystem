@@ -24,10 +24,6 @@ stuNode *searchById(int);
 stuNode *searchByName(char *name,void (*f)(stuNode *));
 void changeStudent(stuNode *node,char *name,int ch,int math,int en);
 void clearNode(void);
-void sortByChinese(void);
-void sortByMath(void);
-void sortByEnglish(void);
-void sortByTotal(void);
 
 extern stuNode* head;
 extern int idNum;

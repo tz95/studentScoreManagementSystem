@@ -1,28 +1,41 @@
-# 变量定义
-source := $(find sourceFile -name "*.c")
-include := $(find include -name "*.h")
-objs := $(source:.c=.o)
-objs := $(objs:sourceFile/%=objs/%)
-
+# 编译器和编译选项
 CC = gcc
+CFLAGS = -g -Wall -Iinclude
 
-ALL: sms
+# 可执行文件名
+TARGET = sms
 
-sms: main.o menu.o operation.o student.o
-	$(CC) -o sms main.o menu.o operation.o student.o
+# 源文件和头文件目录
+SRC_DIR = sourceFile
+OBJ_DIR = objs
+INCLUDE_DIR = include
 
-main.o: sourceFile/main.c include/menu.h
-	$(CC) -c sourceFile/main.c
+# 获取源文件列表
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
-menu.o: sourceFile/menu.c include/menu.h include/operation.h
-	$(CC) -c sourceFile/menu.c
+# 默认目标
+all: $(TARGET)
 
-operation.o: sourceFile/operation.c include/operation.h include/student.h
-	$(CC) -c sourceFile/operation.c
+# 链接可执行文件
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
 
-student.o: sourceFile/student.c include/student.h
-	$(CC) -c sourceFile/student.c
+# 编译每个源文件
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
-.PHONY: clean ALL
+# 清除生成的文件
 clean:
-	rm -f main.o menu.o operation.o student.o
+	rm -f $(OBJ_DIR)/*.o $(TARGET)
+
+# 运行目标（如果需要）
+run: $(TARGET)
+	./$(TARGET)
+
+# 调试目标
+debug: $(TARGET)
+	gdb ./$(TARGET)
+
+.PHONY: all clean run debug
