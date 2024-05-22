@@ -48,7 +48,7 @@ void selectMenu(int n){
         break;
     
     case 8:
-        showAllStu();
+        showAllStu(NULL);
         break;
     default:
         exit(0);
