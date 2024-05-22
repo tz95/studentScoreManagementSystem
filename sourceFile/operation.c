@@ -174,7 +174,7 @@ void sortStu(void){
     showAllStu(node);
     printf("\n\n接下来将会还原学生顺序，请输入Y并回车确认(大小写皆可)");
     scanf("%c",&end);
-    clearNode(node);
+    clearHeadAllNode();
     loadStu();
 }
 
@@ -208,7 +208,7 @@ void showAllStu(stuNode *node){
         printf("\n");
         printf("| 编号 | 姓 名 | 语文 | 数学 | 英语 | 总分 |\n");
 
-        for (stuNode *i = node->next; i != node && i != NULL; i=i->next)
+        for (stuNode *i = node; i != NULL; i=i->next)
         {
             student *stu = i->data; // 获取学生结构体指针
             printf("| %4d | %.*s | %4d | %4d | %4d | %4d |\n", stu->id, 14, stu->name, stu->chineseScore, stu->mathScore, stu->englishScore, stu->chineseScore + stu->mathScore + stu->englishScore);

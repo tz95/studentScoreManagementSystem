@@ -102,7 +102,7 @@ void clearNode(stuNode *node){
 
 void clearHeadAllNode(void){
     stuNode *node = head->prev;
-    while (node->prev != head)
+    while (node != head)
     {
         head->prev = head->prev->prev;
         free(node->data);
@@ -177,7 +177,7 @@ stuNode *sortMerge(stuNode *node,int condi){
         }
     }
     preNode->next = NULL;
-    return dummy;
+    return dummy->next;
 }
 
 void EOFclose(){
