@@ -6,7 +6,7 @@ CFLAGS = -g -Wall -Iinclude
 TARGET = sms
 
 # 源文件和头文件目录
-SRC_DIR = sourceFile
+SRC_DIR = src
 OBJ_DIR = objs
 INCLUDE_DIR = include
 
